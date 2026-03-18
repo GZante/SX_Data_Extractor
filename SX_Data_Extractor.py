@@ -1,6 +1,6 @@
 
 
-# ── CELL 1 — Imports & API key ───────────────────────────────────────────────
+# CELL 1 — Imports & API key 
 import anthropic
 import base64, json, logging, math, os, re, sys, textwrap, io
 from dataclasses import dataclass, field
@@ -18,21 +18,21 @@ logging.basicConfig(level=logging.INFO,
                     datefmt="%H:%M:%S")
 log = logging.getLogger("agent")
 
-# ── Load API key from file ────────────────────────────────────────────────────
+# Load API key from file 
 # Create a plain-text file containing only your Anthropic API key (sk-ant-...)
 # Get one at: https://console.anthropic.com/
 API_KEY_PATH   = r"path to txt file containing the API key goes here"
 ANTHROPIC_KEY  = Path(API_KEY_PATH).read_text(encoding="utf-8").strip()
 
-# ── Create Anthropic client ───────────────────────────────────────────────────
+# Create Anthropic client 
 client = anthropic.Anthropic(api_key=ANTHROPIC_KEY)
 
-# ── Model selection ───────────────────────────────────────────────────────────
+# Model selection 
 # claude-opus-4-6   — most capable, best for complex extraction
 # claude-sonnet-4-6 — faster and cheaper
 MODEL = "claude-opus-4-6"
 
-# ── PDF path — edit this to your file ────────────────────────────────────────
+# PDF path — edit this to your file 
 PDF_PATH = r"path to the pdf file goes here"
 
 # Output will be saved next to the PDF
@@ -52,7 +52,7 @@ _test = client.messages.create(
 print(f"Connection test ✓  ({_test.content[0].text.strip()})")
 
 
-# ── CELL 2 — Lookup tables ───────────────────────────────────────────────────
+# CELL 2 — Lookup tables 
 
 CATION_TABLE: dict[str, list[tuple[int, float]]] = {
     "Ag": [(1, 1.29)],  "Al": [(3, 0.675)], "Am": [(3, 1.115)], "As": [(5, 0.60)],
@@ -115,7 +115,7 @@ COLUMNS = [
 print("Lookup tables loaded ✓")
 
 
-# ── CELL 3 — Claude helpers ──────────────────────────────────────────────────
+# CELL 3 — Claude helpers 
 
 def _chat(prompt: str, system: str = "") -> str:
     """Text-only Claude call."""
@@ -180,7 +180,7 @@ def _parse_json(raw: str) -> object:
 print("Claude helpers ready ✓")
 
 
-# ── CELL 4 — PDF parser ──────────────────────────────────────────────────────
+# CELL 4 — PDF parser 
 
 @dataclass
 class ParsedPDF:
@@ -252,7 +252,7 @@ def parse_pdf(pdf_path: str) -> ParsedPDF:
     return result
 
 
-# ── CELL 5 — Text agent ──────────────────────────────────────────────────────
+# CELL 5 — Text agent 
 
 _TEXT_SYS = (
     "You are an expert chemist specialising in TBP solvent extraction. "
@@ -357,7 +357,7 @@ def run_text_agent(parsed: ParsedPDF) -> dict:
     return meta
 
 
-# ── CELL 6 — Table agent ─────────────────────────────────────────────────────
+# CELL 6 — Table agent
 
 _TABLE_SYS = (
     "You are an expert data extractor for solvent extraction chemistry tables. "
@@ -427,7 +427,7 @@ def run_table_agent(parsed: ParsedPDF) -> list[dict]:
     return rows
 
 
-# ── CELL 7 — Figure agent (vision) ──────────────────────────────────────────
+# CELL 7 — Figure agent (vision) 
 
 _FIG_PROMPT = """\
 This image is from a TBP solvent extraction paper.
@@ -596,7 +596,7 @@ def run_figure_agent(parsed: ParsedPDF) -> list[dict]:
     return rows
 
 
-# ── CELL 8 — Equation evaluator ─────────────────────────────────────────────
+# CELL 8 — Equation evaluator 
 
 # Safe math context for eval
 _MATH_ENV = {
@@ -789,7 +789,7 @@ def run_equation_agent(equations: list[dict], meta: dict) -> list[dict]:
     return rows
 
 
-# ── CELL 9 — Assembler ───────────────────────────────────────────────────────
+# CELL 9 — Assembler 
 
 def _coerce(v):
     if v is None or v == "": return None
@@ -894,7 +894,7 @@ def assemble(raw_rows: list[dict], meta: dict, pdf_name: str) -> pd.DataFrame:
     return df
 
 
-# ── CELL 10 — Excel exporter ─────────────────────────────────────────────────
+# CELL 10 — Excel exporter 
 
 _HEADER_FILL = PatternFill("solid", fgColor="1F4E79")
 _HEADER_FONT = Font(color="FFFFFF", bold=True, name="Calibri", size=10)
@@ -972,7 +972,7 @@ def export_excel(df: pd.DataFrame, output_path: str) -> str:
     return str(Path(output_path).resolve())
 
 
-# ── CELL 11 — RUN EVERYTHING ─────────────────────────────────────────────────
+# CELL 11 — RUN EVERYTHING 
 
 print("=" * 60)
 print("Starting extraction pipeline...")
