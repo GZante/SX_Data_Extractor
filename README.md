@@ -336,7 +336,7 @@ ai-data-extractor/
 > ```
 
 ---
-##Demonstrated example — Au/TBP/chloride system
+## Demonstrated example — Au/TBP/chloride system
 The pipeline was validated against the following peer-reviewed paper:
 
 Sadeghi, N., & Keshavarz Alamdari, E. (2016). A new approach for monitoring and controlling the extraction of gold by tri-butyl phosphate from chloride media. Minerals Engineering, 85, 34–37.
