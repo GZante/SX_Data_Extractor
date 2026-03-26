@@ -1,10 +1,5 @@
 # SX_Data_Extractor
-AI-powered pipeline that reads TBP solvent extraction research papers (PDF) and automatically extracts experimental data - extraction efficiencies, TBP/acid concentrations, experimental conditions- from text, tables, and charts using Claude AI. Outputs a structured Excel spreadsheet ready for ML training.
-
-
-# AI Scientific Data Extractor — TBP Solvent Extraction
-
-> A multi-agent pipeline that reads chemistry research papers (PDFs) and automatically extracts structured experimental data into a formatted Excel spreadsheet — powered by [Claude](https://www.anthropic.com/claude) (Anthropic).
+AI-powered pipeline that reads TBP solvent extraction research papers (PDF) and automatically extracts experimental data - extraction efficiencies, TBP/acid concentrations, experimental conditions- from text, tables, and charts using Claude AI. Outputs a structured Excel spreadsheet ready for ML training. Powered by [Claude](https://www.anthropic.com/claude) (Anthropic).
 
 ---
 
